@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-hello-world-service
+spec:
+  selector:
+    app: dotnet-hello-world
+  type: LoadBalancer
+  ports:
+    - name: dotnet-hello-world-service
+      protocol: TCP
+      port: 80
+      targetPort: 8080

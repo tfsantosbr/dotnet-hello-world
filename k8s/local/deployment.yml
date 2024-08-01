@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-hello-world
+  labels:
+    app: dotnet-hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnet-hello-world
+  template:
+    metadata:
+      labels:
+        app: dotnet-hello-world
+    spec:
+      containers:
+        - name: dotnet-hello-world
+          image: tfsantosbr/dotnet-hello-world:v1
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: dotnet-hello-world-configmap
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 150m
+              memory: 200Mi
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            timeoutSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 10

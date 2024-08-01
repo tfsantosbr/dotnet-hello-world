@@ -1,0 +1,21 @@
+@TestApi_HostAddress = http://localhost:5000
+
+GET {{TestApi_HostAddress}}/
+
+### SQL Server Version
+GET {{TestApi_HostAddress}}/sqlserver-version
+
+### SQL Server Test
+GET {{TestApi_HostAddress}}/sqlserver-test
+
+### Health Check (Default)
+GET {{TestApi_HostAddress}}/health
+
+### Health Check (Ready)
+GET {{TestApi_HostAddress}}/health/ready
+
+### Health Check (Live)
+GET {{TestApi_HostAddress}}/health/live
+
+### Health Check (Details)
+GET {{TestApi_HostAddress}}/health/details

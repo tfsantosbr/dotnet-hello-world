@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dotnet-hello-world-configmap
+data:
+  CONNECTIONSTRINGS__DEFAULTCONNECTION: "Server=host.docker.internal,1433;Database=master;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;Connection Timeout=10;"
