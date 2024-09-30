@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: dotnet-hello-world-service
+  namespace: dotnet-hello-world
 spec:
   selector:
     app: dotnet-hello-world

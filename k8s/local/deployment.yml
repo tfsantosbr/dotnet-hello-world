@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dotnet-hello-world
+  namespace: dotnet-hello-world
   labels:
     app: dotnet-hello-world
 spec:
@@ -35,7 +36,7 @@ spec:
               port: 8080
           readinessProbe:
             httpGet:
-              path: /health/ready
+              path: /health/live # mudar para ready depois
               port: 8080
             timeoutSeconds: 5
           startupProbe:

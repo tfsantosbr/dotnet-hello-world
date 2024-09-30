@@ -36,7 +36,7 @@ To run the project locally, follow these steps:
 
 6. Open your web browser and navigate to `http://localhost:5193` to access the application.
 
-## Running with Docker Compose
+## Running on Docker Compose
 
 To run the project with Docker Compose, follow these steps:
 
@@ -56,4 +56,14 @@ To run the project with Docker Compose, follow these steps:
 
 5. Open your web browser and navigate to `http://localhost:5000` to access the application.
 
-That's it! You should now be able to run the .NET 8 project locally and with Docker Compose.
+## Running on Kubernetes
+
+To run the project on Kubernetes, follow these steps:
+
+```bash
+kubectl apply -f k8s/local/namespace.yml
+kubectl apply -f k8s/local
+kubectl port-forward service/dotnet-hello-world-service 8000:80 -n dotnet-hello-world
+```
+
+Open your web browser and navigate to `http://localhost:8000` to access the application.

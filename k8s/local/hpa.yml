@@ -2,6 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: dotnet-hello-world-hpa
+  namespace: dotnet-hello-world
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
