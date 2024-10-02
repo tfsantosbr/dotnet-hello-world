@@ -24,8 +24,8 @@ spec:
             - name: CONNECTIONSTRINGS__DEFAULTCONNECTION
               valueFrom:
                 secretKeyRef:
-                  name: dotnet-hello-world-secret
-                  key: DB_CONNECTION
+                  name: credit-secrets
+                  key: DB_CONNECTION_STRING
           resources:
             requests:
               cpu: 50m
