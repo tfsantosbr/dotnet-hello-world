@@ -20,9 +20,12 @@ spec:
           image: tfsantosbr/dotnet-hello-world:v1
           ports:
             - containerPort: 8080
-          envFrom:
-            - configMapRef:
-                name: dotnet-hello-world-configmap
+          env:
+            - name: CONNECTIONSTRINGS__DEFAULTCONNECTION
+              valueFrom:
+                secretKeyRef:
+                  name: dotnet-hello-world-secret
+                  key: DB_CONNECTION
           resources:
             requests:
               cpu: 50m
