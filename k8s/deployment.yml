@@ -17,14 +17,14 @@ spec:
     spec:
       containers:
         - name: dotnet-hello-world
-          image: tfsantosbr/dotnet-hello-world:v1
+          image: tfsantosbr/dotnet-hello-world:v2
           ports:
             - containerPort: 8080
           env:
             - name: CONNECTIONSTRINGS__DEFAULTCONNECTION
               valueFrom:
                 secretKeyRef:
-                  name: credit-secrets
+                  name: dotnet-hello-world-secret
                   key: DB_CONNECTION_STRING
           resources:
             requests:

@@ -1,15 +1,17 @@
-using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHealthChecks()
-    .AddSqlServer(configuration.GetConnectionString("DefaultConnection")!, tags: ["ready"]);
+builder.Services.AddHealthChecks();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -69,6 +71,33 @@ app.MapGet("/sqlserver-test", (IConfiguration configuration, ILogger<Program> lo
         return Results.Ok(reader.GetInt32(0));
 
     return Results.Problem("Não foi possível retornar o valor do SQL Server.");
+});
+
+app.MapGet("/sqlserver-ef-test", async (AppDbContext dbContext, ILogger<Program> logger) =>
+{
+    string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+    string maskedConnectionString = MaskPassword(connectionString);
+
+    logger.LogInformation("Tentando se conectar ao SQL Server utilizando o Entity Framework. " +
+        "Connection String: {ConnectionString}", maskedConnectionString);
+
+    try
+    {
+        await dbContext.Database.OpenConnectionAsync();
+        await dbContext.Database.CloseConnectionAsync();
+
+        logger.LogInformation("Conexão com o banco de dados estabelecida com sucesso usando o Entity Framework." +
+            "Connection String: {ConnectionString}", maskedConnectionString);
+
+        return Results.Ok("Conexão com o banco de dados estabelecida com sucesso usando o Entity Framework.");
+    }
+    catch (Exception ex)
+    {
+        logger.LogInformation(ex, "Erro ao acessar o SQL Server utilizando o Entity Framework. " +
+            "Connection String: {ConnectionString}", maskedConnectionString);
+
+        return Results.Problem("Não foi possível acessar o banco de dados usando o Entity Framework.");
+    }
 });
 
 // Health Check Mappings

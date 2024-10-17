@@ -23,7 +23,7 @@ services:
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server
-    container_name: sqlserver
+    container_name: net8poc-api-sqlserver
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=YourStrong@Passw0rd

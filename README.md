@@ -61,8 +61,8 @@ To run the project with Docker Compose, follow these steps:
 To run the project on Kubernetes, follow these steps:
 
 ```bash
-kubectl apply -f k8s/local/namespace.yml
-kubectl apply -f k8s/local
+kubectl apply -f k8s/namespace.yml
+kubectl apply -f k8s/
 kubectl port-forward service/dotnet-hello-world-service 8000:80 -n dotnet-hello-world
 ```
 

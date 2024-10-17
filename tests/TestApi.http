@@ -8,6 +8,9 @@ GET {{TestApi_HostAddress}}/sqlserver-version
 ### SQL Server Test
 GET {{TestApi_HostAddress}}/sqlserver-test
 
+### Entity Framework Test
+GET {{TestApi_HostAddress}}/sqlserver-ef-test
+
 ### Health Check (Default)
 GET {{TestApi_HostAddress}}/health
 
